@@ -1,0 +1,24 @@
+[Unit]
+Description=Kodi Media Center
+After=systemd-user-sessions.service network.target sound.target
+
+[Service]
+User=kodi
+
+# Create the kodi user at runtime.
+DynamicUser=yes
+SupplementaryGroups=audio
+SupplementaryGroups=input
+SupplementaryGroups=plugdev
+SupplementaryGroups=video
+
+StateDirectory=kodi
+Environment=HOME=/var/lib/kodi
+
+# Check we have enough GPU RAM.
+ExecStartPre=/usr/bin/kodi-check-rpi4-gpu-mem
+
+ExecStart=/usr/bin/kodi-standalone
+
+[Install]
+WantedBy=multi-user.target

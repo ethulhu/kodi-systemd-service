@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -eu
+
+readonly enough_mem=256
+
+if ! cat /proc/cpuinfo | grep -q 'Raspberry Pi 4'; then
+	exit 0
+fi
+
+gpu_mem="$( vcgencmd get_mem gpu | sed 's/^gpu=\([0-9]\+\)M$/\1/' )"
+
+if [ "${gpu_mem}" -lt "${enough_mem}" ]; then
+	echo "gpu_mem is ${gpu_mem}M, must be at least ${enough_mem}M."
+	echo "add 'gpu_mem=${enough_mem}' to /boot/config.txt and reboot."
+	exit 1
+fi

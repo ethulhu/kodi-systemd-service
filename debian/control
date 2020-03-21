@@ -1,0 +1,9 @@
+Source: kodi-systemd-service
+Package: kodi-systemd-service
+Architecture: all
+Essential: no
+Priority: optional
+Section: video
+Depends: kodi
+Maintainer: Eth Morgan <eth@ethulhu.co.uk>
+Description: start Kodi Media Center on system start
